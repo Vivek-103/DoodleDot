@@ -1,19 +1,40 @@
 import { Router, type Router as ExpressRouter } from "express";
-
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import {randomUUID} from "node:crypto"
+import {config} from "../config"
+import { signinSchema , signupSchema } from "../schemas/auth";
+import {users , type User} from "../store/memory"
 export const authRouter: ExpressRouter = Router();
 
-authRouter.post("/signup", (_req, res) => {
-  // TODO:
-  // 1. Validate req.body with signupSchema.
-  // 2. Check if the user email already exists in users.
-  // 3. Hash the password with bcrypt.
-  // 4. Create a user object with id, email, and passwordHash.
-  // 5. Push the user into users.
-  // 6. Return status 201 with the new userId.
+authRouter.post("/signup", async(req, res) => {
+  const parsed = signupSchema.safeParse(req.body);
+  if(!parsed.success){
+    return res.status(400).json({
+      message : "Invalid Input",
+      errors : parsed.error.issues,
+    });
+  }
+  const {email , password} = parsed.data;
 
-  return res.status(501).json({
-    message: "POST /auth/signup is not implemented yet",
-  });
+  const existingUser = users.find((user) =>user.email == email);
+
+  if(existingUser){
+    return res.status(409).json({message : "User already exist"});
+  }
+
+  const passwordHash = await bcrypt.hash(password,10);
+  const user : User = {
+    id : randomUUID(),
+    email,
+    passwordHash
+  };
+  users.push(user);
+
+  return res.status(201).json({
+    message:"User Created successfully",
+    userId : user.id,
+  }); 
 });
 
 authRouter.post("/signin", (_req, res) => {

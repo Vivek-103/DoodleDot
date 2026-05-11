@@ -4,5 +4,5 @@ export const config = {
 
   // TODO: Later read this from process.env.JWT_SECRET.
   // Never commit a real production secret to GitHub.
-  jwtSecret: "dev-secret-change-this-later",
+  jwtSecret: "JWT_SECRET",
 };
