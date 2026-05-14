@@ -37,15 +37,24 @@ authRouter.post("/signup", async(req, res) => {
   }); 
 });
 
-authRouter.post("/signin", (_req, res) => {
-  // TODO:
-  // 1. Validate req.body with signinSchema.
-  // 2. Find the user by email.
-  // 3. Compare the password with bcrypt.
-  // 4. If valid, create a JWT containing userId.
-  // 5. Return the token.
+authRouter.post("/signin", async(req, res) => {
+  const parsed = signinSchema.safeParse(req.body);
+  if(!parsed.success){
+    return res.status(400).json({
+      message : "Invalid Input",
+      errors : parsed.error.issues
+    });
+  }
+  const {email , password} = parsed.data
+  const user = users.find((u) => u.email === email);
+  if(!user){
+    return res.status(401).json({ message : "Invalid Email or password"});
+  }
+  const valid = await bcrypt.compare(password , user.passwordHash);
 
-  return res.status(501).json({
-    message: "POST /auth/signin is not implemented yet",
-  });
+  if(!valid){
+    return res.status(401).json({message : "Invalide email or password"});
+  }
+
+  const token = jwt.sign({userId : user.id} , config.jwtSecret);return res.json({token});
 });

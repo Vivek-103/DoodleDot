@@ -39,3 +39,4 @@ AGENTS.md
 # Misc
 .DS_Store
 *.pem
+.agents

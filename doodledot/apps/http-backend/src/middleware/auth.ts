@@ -15,7 +15,7 @@ export function authMiddleware(
   const authHeader = req.headers.authorization;
   // 2. Check that it looks like: Bearer <token>.
   if(!authHeader){
-    return res.json(401).json({message : "Authorization Header Missing"});
+    return res.status(401).json({message : "Authorization Header Missing"});
   }
   // 3. Verify the token using jsonwebtoken and config.jwtSecret.
   const token =authHeader.split(" ")[1];

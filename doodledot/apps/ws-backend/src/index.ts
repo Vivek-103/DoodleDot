@@ -1,11 +1,9 @@
 import { WebSocketServer } from "ws";
+import { config } from "./config";
+import { handleConnection } from "./handlers/connection";
 
-const wss = new WebSocketServer({ port : 8080});
+const wss = new WebSocketServer({ port: config.port });
 
-wss.on('connection' , function connection(ws){
+wss.on("connection", handleConnection);
 
-    ws.on('message' , function message(data){
-         ws.send('pong');
-    });
-   
-})
+console.log(`WebSocket server running on port ${config.port}`);
