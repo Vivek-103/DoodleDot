@@ -29,20 +29,6 @@ Open `http://localhost:3000`, sign up, and start a room.
 3. **Guess in real-time** — Type your guesses as the drawing happens
 4. **Score points** — Faster guesses earn more points. Most points wins!
 
-## 🏗️ Architecture
-
-```
-apps/
-├── web/              Next.js 16 frontend (port 3000)
-│   ├── landing       Animated doodle canvas, auth, dashboard
-│   └── game          Canvas drawing, chat, real-time game UI
-├── http-backend/     Express 5 API (port 4000)
-│   ├── auth          Signup/signin with JWT
-│   └── room          Create, list, join rooms
-└── ws-backend/       WebSocket server (port 8080)
-    ├── game          Round management, timer, scoring
-    └── relay         Real-time draw + chat relay
-```
 
 ## ✨ Features
 
