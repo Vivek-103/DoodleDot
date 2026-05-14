@@ -1,159 +1,95 @@
-# Turborepo starter
+# 🎨 DoodleDot
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Draw. Guess. Laugh.**
 
-## Using this example
+A real-time multiplayer drawing and guessing game. Grab some friends, get a wacky prompt, and doodle your heart out before the timer runs out.
 
-Run the following command:
+## 🚀 Quick Start
 
-```sh
-npx create-turbo@latest
+```bash
+# Terminal 1 — HTTP backend
+cd apps/http-backend
+npm run dev
+
+# Terminal 2 — WebSocket backend
+cd apps/ws-backend
+npm run dev
+
+# Terminal 3 — Frontend
+cd apps/web
+pnpm dev
 ```
 
-## What's inside?
+Open `http://localhost:3000`, sign up, and start a room.
 
-This Turborepo includes the following packages/apps:
+## 🎮 How It Works
 
-### Apps and Packages
+1. **Create a room** — Share the 6-letter code with friends
+2. **Draw the prompt** — Each player takes turns drawing a random word
+3. **Guess in real-time** — Type your guesses as the drawing happens
+4. **Score points** — Faster guesses earn more points. Most points wins!
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## 🏗️ Architecture
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```
+apps/
+├── web/              Next.js 16 frontend (port 3000)
+│   ├── landing       Animated doodle canvas, auth, dashboard
+│   └── game          Canvas drawing, chat, real-time game UI
+├── http-backend/     Express 5 API (port 4000)
+│   ├── auth          Signup/signin with JWT
+│   └── room          Create, list, join rooms
+└── ws-backend/       WebSocket server (port 8080)
+    ├── game          Round management, timer, scoring
+    └── relay         Real-time draw + chat relay
 ```
 
-Without global `turbo`, use your package manager:
+## ✨ Features
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+- **Live drawing** — Every stroke streams to all players instantly
+- **Smart cursor** — Dot preview shows your exact brush size and color
+- **Brush controls** — 10 colors, adjustable size, eraser mode
+- **Auto-advance** — Rounds flow automatically, no waiting for admins
+- **250+ prompts** — From "apple" to "zeppelin", with plenty of chaos in between
+- **Mobile-ready** — Touch events work for drawing on phones and tablets
+- **Persistent rooms** — Create, share codes, and play instantly
+
+## 🛠️ Built With
+
+- [Next.js 16](https://nextjs.org/) — React framework
+- [Express 5](https://expressjs.com/) — HTTP server
+- [ws](https://github.com/websockets/ws) — WebSocket server
+- [TypeScript](https://www.typescriptlang.org/) — Everywhere
+- [Turborepo](https://turbo.build/) — Monorepo orchestration
+- [pnpm](https://pnpm.io/) — Package manager
+
+## 📁 Project Structure
+
+```
+doodledot/
+├── apps/
+│   ├── web/
+│   │   ├── app/          Pages, layout, styles
+│   │   ├── components/   Canvas, chat components
+│   │   └── lib/          WebSocket hook
+│   ├── http-backend/
+│   │   └── src/
+│   │       ├── routes/   Auth + room endpoints
+│   │       ├── schemas/  Zod validation
+│   │       └── store/    In-memory data
+│   └── ws-backend/
+│       └── src/
+│           ├── handlers/ Connection + message handling
+│           ├── store/    Game state + room management
+│           └── game/     Prompts word list
+└── packages/             Shared UI, config, linting
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## 🧑‍🎨 The DoodleDot Experience
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+| Round | Drawer | Everyone Else |
+|---|---|---|
+| You draw | See your secret prompt + brush tools | Watch you draw, type guesses |
+| They draw | Try to guess from their doodles | See a different player draw |
 
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Points stack: **100 base + seconds remaining** for each correct guess.

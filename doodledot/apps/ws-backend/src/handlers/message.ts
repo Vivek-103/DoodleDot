@@ -1,4 +1,4 @@
-import { AuthenticatedSocket, joinRoom, broadcastToRoom } from "../store/rooms";
+import { AuthenticatedSocket, joinRoom, leaveRoom, broadcastDraw, startGame, handleGuess, handleNextRound } from "../store/rooms";
 
 export function handleMessage(socket: AuthenticatedSocket, rawData: any): void {
   let parsed: { type: string; [key: string]: any };
@@ -19,8 +19,36 @@ export function handleMessage(socket: AuthenticatedSocket, rawData: any): void {
       joinRoom(parsed.roomId, socket);
       break;
 
+    case "leave_room":
+      if (socket.roomId) {
+        leaveRoom(socket);
+      }
+      break;
+
     case "draw":
-      broadcastToRoom(socket, rawData.toString());
+      if (!socket.roomId) return;
+      broadcastDraw(socket, rawData.toString());
+      break;
+
+    case "start_game": {
+      if (!socket.roomId) return;
+      const result = startGame(socket.roomId, socket);
+      if (!result.ok) {
+        socket.send(JSON.stringify({ type: "error", message: result.error }));
+      }
+      break;
+    }
+
+    case "chat":
+      if (!parsed.message || typeof parsed.message !== "string") {
+        socket.send(JSON.stringify({ error: "message required" }));
+        return;
+      }
+      handleGuess(socket, parsed.message);
+      break;
+
+    case "next_round":
+      handleNextRound(socket);
       break;
 
     default:

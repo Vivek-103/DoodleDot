@@ -31,10 +31,8 @@ authRouter.post("/signup", async(req, res) => {
   };
   users.push(user);
 
-  return res.status(201).json({
-    message:"User Created successfully",
-    userId : user.id,
-  }); 
+  const token = jwt.sign({ userId: user.id }, config.jwtSecret);
+  return res.status(201).json({ token }); 
 });
 
 authRouter.post("/signin", async(req, res) => {
@@ -53,7 +51,7 @@ authRouter.post("/signin", async(req, res) => {
   const valid = await bcrypt.compare(password , user.passwordHash);
 
   if(!valid){
-    return res.status(401).json({message : "Invalide email or password"});
+    return res.status(401).json({message : "Invalid email or password"});
   }
 
   const token = jwt.sign({userId : user.id} , config.jwtSecret);return res.json({token});

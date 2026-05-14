@@ -1,0 +1,239 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 40px 24px;
+}
+
+.header {
+  max-width: 900px;
+  margin: 0 auto 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-fredoka);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  text-decoration: none;
+}
+
+.logoAccent {
+  background: linear-gradient(135deg, var(--coral), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logoutBtn {
+  background: none;
+  border: 2px solid var(--charcoal-soft);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-family: var(--font-outfit);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--charcoal-soft);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(45, 45, 58, 0.04);
+}
+
+.cardTitle {
+  font-family: var(--font-fredoka);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: var(--charcoal);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--cream-dark);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-outfit);
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  background: var(--cream);
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--coral);
+}
+
+.btn {
+  font-family: var(--font-fredoka);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btnPrimary {
+  background: var(--coral);
+  color: white;
+}
+
+.btnPrimary:hover {
+  background: var(--coral-hover);
+  transform: translateY(-1px);
+}
+
+.btnSecondary {
+  background: var(--teal);
+  color: white;
+}
+
+.btnSecondary:hover {
+  background: var(--teal-hover);
+  transform: translateY(-1px);
+}
+
+.codeDisplay {
+  font-family: var(--font-fredoka);
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  text-align: center;
+  color: var(--coral);
+  padding: 16px;
+  background: rgba(255, 107, 107, 0.06);
+  border-radius: var(--radius-sm);
+  margin-top: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.codeDisplay:hover {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.successMsg {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--teal);
+  margin-top: 8px;
+}
+
+.errorMsg {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--coral);
+  margin-top: 8px;
+}
+
+.roomList {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.roomListTitle {
+  font-family: var(--font-fredoka);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--text-soft);
+}
+
+.roomItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(45, 45, 58, 0.04);
+  margin-bottom: 8px;
+  transition: transform 0.2s;
+}
+
+.roomItem:hover {
+  transform: translateX(4px);
+}
+
+.roomName {
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.roomMeta {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.roomCode {
+  font-family: monospace;
+  background: var(--cream-dark);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.joinSmallBtn {
+  font-family: var(--font-fredoka);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: none;
+  background: var(--purple);
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.joinSmallBtn:hover {
+  background: #8B5CF6;
+}
+
+.backLink {
+  display: inline-block;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.backLink:hover {
+  color: var(--coral);
+}
