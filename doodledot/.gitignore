@@ -33,6 +33,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Agent instructions (local to each developer)
+AGENTS.md
+
 # Misc
 .DS_Store
 *.pem
