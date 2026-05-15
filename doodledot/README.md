@@ -49,27 +49,7 @@ Open `http://localhost:3000`, sign up, and start a room.
 - [Turborepo](https://turbo.build/) — Monorepo orchestration
 - [pnpm](https://pnpm.io/) — Package manager
 
-## 📁 Project Structure
 
-```
-doodledot/
-├── apps/
-│   ├── web/
-│   │   ├── app/          Pages, layout, styles
-│   │   ├── components/   Canvas, chat components
-│   │   └── lib/          WebSocket hook
-│   ├── http-backend/
-│   │   └── src/
-│   │       ├── routes/   Auth + room endpoints
-│   │       ├── schemas/  Zod validation
-│   │       └── store/    In-memory data
-│   └── ws-backend/
-│       └── src/
-│           ├── handlers/ Connection + message handling
-│           ├── store/    Game state + room management
-│           └── game/     Prompts word list
-└── packages/             Shared UI, config, linting
-```
 
 ## 🧑‍🎨 The DoodleDot Experience
 
